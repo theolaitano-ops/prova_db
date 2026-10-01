@@ -81,3 +81,14 @@ values
 ('10E', 'econimica', '300.00');
 
 
+CREATE VIEW vw_painel_aeroporto AS
+SELECT 
+    v.numero_voo,
+    v.data_hora,
+    v.origem,
+    v.destino,
+    a.modelo AS modelo_aeronave,
+    a.codigo_cauda,
+    v.status
+FROM voos v
+LEFT JOIN aeronaves a ON v.aeronave_id = a.id;
