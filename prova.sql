@@ -92,3 +92,14 @@ SELECT
     v.status
 FROM voos v
 LEFT JOIN aeronaves a ON v.aeronave_id = a.id;
+
+CREATE VIEW vw_faturamento_por_voo AS
+SELECT 
+    v.id AS voo_id,
+    v.numero_voo,
+    v.destino,
+    COUNT(p.id) AS total_passageiros,
+    COALESCE(SUM(p.valor), 0.00) AS receita_total
+FROM voos v
+LEFT JOIN passagens p ON v.id = p.voo_id
+GROUP BY v.id, v.numero_voo, v.destino;
